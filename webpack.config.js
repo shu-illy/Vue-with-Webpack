@@ -1,8 +1,13 @@
-const path = require("path");
-const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const WebpackAssetsManifest = require("webpack-assets-manifest");
-const { VueLoaderPlugin } = require("vue-loader");
-module.exports = {
+import path from "path";
+import { fileURLToPath } from "url";
+import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
+import WebpackAssetsManifest from "webpack-assets-manifest";
+import { VueLoaderPlugin } from "vue-loader";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const config = {
   mode: process.env.NODE_ENV,
   entry: {
     application: path.resolve(
@@ -44,3 +49,5 @@ module.exports = {
     new VueLoaderPlugin(),
   ],
 };
+
+export default config;
