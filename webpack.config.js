@@ -1,4 +1,5 @@
 import path from "path";
+import glob from "glob";
 import { fileURLToPath } from "url";
 import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
 import WebpackAssetsManifest from "webpack-assets-manifest";
@@ -7,14 +8,19 @@ import { VueLoaderPlugin } from "vue-loader";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const packs = path.join(__dirname, "app", "javascript", "packs");
+const targets = glob.sync(path.join(packs, "**/*.{js,ts,vue}"));
+const entry = targets.reduce((entry, target) => {
+  const bundle = path.relative(packs, target);
+  const ext = path.extname(bundle);
+  return Object.assign({}, entry, {
+    [bundle.replace(ext, "")]: `${__dirname}/app/javascript/packs/${bundle}`,
+  });
+}, {});
+
 const config = {
   mode: process.env.NODE_ENV,
-  entry: {
-    application: path.resolve(
-      __dirname,
-      "./app/javascript/packs/application.js"
-    ),
-  },
+  entry,
   output: {
     filename: "js/[name]-[contenthash].js",
     chunkFilename: "js/[name]-[contenthash].chunk.js",
