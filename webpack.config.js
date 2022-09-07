@@ -1,12 +1,8 @@
-import path from "path";
-import glob from "glob";
-import { fileURLToPath } from "url";
-import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
-import WebpackAssetsManifest from "webpack-assets-manifest";
-import { VueLoaderPlugin } from "vue-loader";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const path = require("path");
+const glob = require("glob");
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+const WebpackAssetsManifest = require("webpack-assets-manifest");
+const { VueLoaderPlugin } = require("vue-loader");
 
 const packs = path.join(__dirname, "app", "javascript", "packs");
 const targets = glob.sync(path.join(packs, "**/*.{js,ts,vue}"));
@@ -18,7 +14,7 @@ const entry = targets.reduce((entry, target) => {
   });
 }, {});
 
-const config = {
+module.exports = {
   mode: process.env.NODE_ENV,
   entry,
   output: {
@@ -55,8 +51,6 @@ const config = {
     new VueLoaderPlugin(),
   ],
 };
-
-export default config;
 
 // 参考：simpackerインストールで自動的に生成されるwebpack.config.js
 // const path = require("path");

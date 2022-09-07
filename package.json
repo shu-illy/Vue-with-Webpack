@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "vue-with-webpack",
   "private": true,
   "scripts": {
