@@ -27,6 +27,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".vue"],
     modules: [path.resolve(__dirname, "./app/javascript"), "node_modules"],
+    alias: {
+      "@": path.resolve(__dirname, "app/javascript/src"),
+    },
   },
   module: {
     strictExportPresence: true,

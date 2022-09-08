@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { defineProps, ref } from "vue";
 
 // type Tweet = {
