@@ -38,6 +38,10 @@ module.exports = {
         options: { appendTsSuffixTo: ["/\\.vue$/"] },
         exclude: "/node_modules/",
       },
+      {
+        test: /\.css$/,
+        use: ["vue-style-loader", "css-loader"],
+      },
     ],
   },
   plugins: [
