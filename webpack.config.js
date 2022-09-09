@@ -13,16 +13,18 @@ const entry = targets.reduce((entry, target) => {
     [bundle.replace(ext, "")]: `${__dirname}/app/javascript/packs/${bundle}`,
   });
 }, {});
+const { NODE_ENV } = process.env;
+const isProd = NODE_ENV === "production";
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: isProd ? "production" : "development",
   entry,
   output: {
     filename: "js/[name]-[contenthash].js",
     chunkFilename: "js/[name]-[contenthash].chunk.js",
     hotUpdateChunkFilename: "js/[id]-[hash].hot-update.js",
     path: path.resolve(__dirname, "./public/packs"),
-    publicPath: "/packs/",
+    publicPath: isProd ? "/packs/" : "//localhost:8080/packs/",
   },
   resolve: {
     extensions: [".js", ".ts", ".vue"],
@@ -57,6 +59,18 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
   ],
+  devServer: {
+    host: "localhost",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    devMiddleware: {
+      publicPath: "/packs/",
+    },
+    static: {
+      directory: path.resolve(__dirname, "public/packs"),
+    },
+  },
 };
 
 // 参考：simpackerインストールで自動的に生成されるwebpack.config.js
