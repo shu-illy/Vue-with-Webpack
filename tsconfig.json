@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "preserve",
+    "module": "Commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "app/javascript/src/*"
+      ]
+    },
+  },
+  "include": [
+    "app/javascript/**/*.ts",
+    "app/javascript/**/*.vue",
+  ],
+}
